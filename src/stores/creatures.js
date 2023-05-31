@@ -12,6 +12,11 @@ export const useCreatureStore = defineStore('creatures', {
       creatures: useCollection(collection(db, 'creatures'))
     }
   },
+  actions: {
+    addCreature(creature) {
+      db.collection("creatures").add(creature)
+    }
+  },
   persist: true
 })
   

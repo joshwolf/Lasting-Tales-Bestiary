@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueform/multiselect": "^2.6.2",
     "daisyui": "^2.52.0",
     "firebase": "^9.22.1",
     "pinia": "^2.0.36",

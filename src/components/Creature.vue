@@ -55,8 +55,8 @@
           <div class="stat-value">{{ creature.strikes }}</div>
         </div>
       </div>
-      <div class="flex flex-wrap place-items-center bg-white border-gray-300 border-2 border-b rounded-lg">
-        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-300 h-12 flex place-items-center">
+      <div class="flex flex-wrap place-items-center bg-white border-gray-600 border-2 border-b rounded-lg">
+        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-600 h-12 flex place-items-center">
           <p class="text-white font-extrabold">Level</p>
         </div>
         <div class="flex-grow px-5 h-12 basis-2/5">
@@ -66,16 +66,24 @@
             </li>
           </ul>
         </div>
-        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-300 h-12 flex place-items-center">
+        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-600 h-12 flex place-items-center">
           <p class="text-white font-extrabold">XP</p>
         </div>
         <div class="flex-grow-none basis-1/5 h-12 place-items-center place-content-center flex">{{ creature.xp }}</div>
-        <div class="basis-full border-t border-gray-300 px-2">
+        <div class="basis-full border-t border-gray-600 px-2">
           <b>Preferred Environment</b>: {{ creature.preferredEnvironments.join(' or ') }}
         </div>
-        <div class="basis-full border-t border-gray-300 px-2">
-          <b>Special</b>: {{ creature.specials.join(', ') }}
+        <div class="basis-full border-t border-gray-600 px-2">
+          <p class="font-bold">Special:</p>
+          <p v-for="special in creature.specials">{{ special }}</p>
         </div>
+      </div>
+      <div v-for="attack in creature.attacks" class="attack flex flex-wrap place-items-center bg-white border-gray-600 border-2 border-b rounded-lg">
+        <div class="text-center basis-full border-b border-gray-600 text-white font-bold bg-gray-600">{{ attack.type }} Attack: {{ attack.name }}</div>
+        <div class="text-center flex-grow-none basis-2/5 font-bold border-b border-gray-600 bg-gray-300">Damage</div>
+        <div class="text-center flex-grow basis-2/5 font-bold border-b border-l border-gray-600 bg-gray-300">Special</div>
+        <div class="text-center flex-grow-none basis-2/5">{{ attack.damage }}</div>
+        <div class="text-center flex-grow basis-2/5 border-l border-gray-600">{{ attack.special || '-' }}</div>
       </div>
     </div>
   </div>
