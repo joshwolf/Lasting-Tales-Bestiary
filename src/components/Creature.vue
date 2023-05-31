@@ -55,8 +55,8 @@
           <div class="stat-value">{{ creature.strikes }}</div>
         </div>
       </div>
-      <div class="flex place-items-center h-12 border-gray-400 border-2 border-b rounded-lg">
-        <div class="flex-grow-none basis-1/5 rounded-l-lg px-2 font-extrabold bg-gray-400 h-12 flex place-items-center">
+      <div class="flex flex-wrap place-items-center bg-white border-gray-300 border-2 border-b rounded-lg">
+        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-300 h-12 flex place-items-center">
           <p class="text-white font-extrabold">Level</p>
         </div>
         <div class="flex-grow px-5 h-12 basis-2/5">
@@ -66,10 +66,16 @@
             </li>
           </ul>
         </div>
-        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-400 h-12 flex place-items-center">
+        <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-300 h-12 flex place-items-center">
           <p class="text-white font-extrabold">XP</p>
         </div>
         <div class="flex-grow-none basis-1/5 h-12 place-items-center place-content-center flex">{{ creature.xp }}</div>
+        <div class="basis-full border-t border-gray-300 px-2">
+          <b>Preferred Environment</b>: {{ creature.preferredEnvironments.join(' or ') }}
+        </div>
+        <div class="basis-full border-t border-gray-300 px-2">
+          <b>Special</b>: {{ creature.specials.join(', ') }}
+        </div>
       </div>
     </div>
   </div>
