@@ -1,3 +1,28 @@
+<script setup>
+import { defineProps, onMounted } from 'vue';
+const props = defineProps({
+  creature: {
+    type: Object,
+    default: {}
+  }
+})
+
+const emit = defineEmits(['update-creature'])
+
+function attackSpecialPrefix(special) {
+  const specialArray = special.split(':')
+  if (specialArray.length === 1) return
+  return specialArray[0] + ':'
+}
+
+function attackSpecialInfo(special) {
+  if(!special) return '-'
+  const specialArray = special.split(':')
+  if (specialArray.length === 1) return
+  return specialArray[1]
+}
+</script>
+
 <template>
   <div class="card w-auto bg-slate-200 shadow-xl">
     <div class="card-body">
@@ -87,25 +112,7 @@
         <div class="text-center damage flex-grow-none basis-2/5 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
         <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
+      <div class="btn btn-sm w-10" @click="emit('update-creature', creature)">Edit</div>
     </div>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  creature: Object
-})
-
-function attackSpecialPrefix(special) {
-  const specialArray = special.split(':')
-  if (specialArray.length === 1) return
-  return specialArray[0] + ':'
-}
-
-function attackSpecialInfo(special) {
-  if(!special) return '-'
-  const specialArray = special.split(':')
-  if (specialArray.length === 1) return
-  return specialArray[1]
-}
-</script>

@@ -13,12 +13,14 @@ export const useCreatureStore = defineStore('creatures', {
     }
   },
   actions: {
-    addCreature(creature) {
-      db.collection("creatures").add(creature)
+    save(creature) {
+      db.collection("creatures").doc(creature.name.split(' ').join('')).set(creature)
     }
   },
   getters: {
-    allTypes: (state) => state.creatures.map((creature) => creature.types).flat().filter((type, index, self) => self.indexOf(type) === index),
+    allTypes: (state) => state.creatures.map((creature) => creature.types)
+      .flat()
+      .filter((type, index, self) => self.indexOf(type) === index),
   },
   persist: true
 })

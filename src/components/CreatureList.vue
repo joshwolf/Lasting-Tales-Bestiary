@@ -7,6 +7,8 @@ import { ref } from "vue";
 const creatureStore = useCreatureStore();
 const modalToggle = ref();
 const creatureAdded = ref();
+const creatureForm = ref();
+const currentCreature = ref({});
 
 function closeForm() {
   modalToggle.value.checked = false;
@@ -16,6 +18,22 @@ function closeForm() {
     //remove the class from the toast
     creatureAdded.value.classList.remove("active");
   }, 2000);
+}
+
+onkeydown = (e) => {
+  if (e.key === "Escape") {
+    modalToggle.value.checked = false;
+  }
+};
+function createCreature() {
+  currentCreature.value = {};
+  console.log(currentCreature)
+  modalToggle.value.checked = true;
+}
+
+function updateCreature(creature) {
+  currentCreature.value = creature;
+  modalToggle.value.checked = true;
 }
 </script>
 
@@ -31,18 +49,18 @@ function closeForm() {
 </style>
 
 <template>
-  <label for="newCreature" class="btn my-5">+ Creature</label>
+  <div for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
   <input type="checkbox" id="newCreature" class="modal-toggle" ref="modalToggle" />
   <div class="modal cursor-pointer">
     <div class="modal-box relative bg-slate-800 text-white max-w-xl">
       <label for="newCreature" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-      <CreatureForm @creature-added="closeForm"></CreatureForm>
+      <CreatureForm @creature-added="closeForm" ref="creatureForm" :creature="currentCreature"></CreatureForm>
     </div>
   </div>
-  <Creature class="mb-5" v-for="creature in creatureStore.creatures" :key="creature.id" :creature="creature"></Creature>
+  <Creature v-if="creatureStore.creatures" class="mb-5" v-for="creature in creatureStore.creatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
   <div class="creatureAdded toast toast-top toast-end" ref="creatureAdded">
     <div class="alert alert-success">
-      <span>Creature Added!</span>
+      <span>Creature Saved!</span>
     </div>
   </div>
 </template>

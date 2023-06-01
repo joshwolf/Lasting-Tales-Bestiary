@@ -1,123 +1,104 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, toRefs, defineProps } from "vue";
 import Multiselect from '@vueform/multiselect'
 import { useCreatureStore } from "../stores/creatures";
 
+const props = defineProps({
+  creature: {
+    type: Object,
+    default: {
+      name: "",
+      class: "",
+      isElite: false,
+      types: [],
+      hp: 1,
+      melee: 0,
+      ranged: 0,
+      strength: 1,
+      agility: 1,
+      defense: 1,
+      intelligence: 1,
+      willpower: 1,
+      isRanged: false,
+      attackType: "Melee",
+      resistance: 0,
+      armorDice: 0,
+      strikes: 1,
+      levels: [],
+      xp: 1,
+      preferredEnvironments: [],
+      specials: [''],
+      attacks: [],
+    }
+  }
+})
+
 const creatureStore = useCreatureStore();
-const emit = defineEmits(['creatureAdded']);
+const emit = defineEmits(['creature-added']);
 const uniqueEnvironments = ['Dungeon', 'Settlement', 'Wilderness', 'Any'];
-const creature = ref({
-  name: "",
-  class: "",
-  isElite: false,
-  types: [],
-  hp: 1,
-  melee: 0,
-  ranged: 0,
-  strength: 1,
-  agility: 1,
-  defense: 1,
-  intelligence: 1,
-  willpower: 1,
-  isRanged: false,
-  attackType: "Melee",
-  resistance: 0,
-  armorDice: 0,
-  strikes: 1,
-  levels: [],
-  xp: 1,
-  preferredEnvironments: [],
-  specials: [''],
-  attacks: [],
-});
 
 function addCreature() {
   const data = {
-    name: creature.value.name,
-    class: creature.value.isElite ? "Elite" : "Minion",
-    types: creature.value.types,
-    hp: creature.value.hp,
-    melee: creature.value.melee,
-    ranged: creature.value.ranged,
-    strength: creature.value.strength,
-    agility: creature.value.agility,
-    defense: creature.value.defense,
-    intelligence: creature.value.intelligence,
-    willpower: creature.value.willpower,
-    attackType: creature.value.isRanged ? "Ranged" : "Melee",
-    resistance: creature.value.resistance,
-    armorDice: creature.value.armorDice,
-    strikes: creature.value.strikes,
-    levels: creature.value.levels,
-    xp: creature.value.xp,
-    preferredEnvironments: creature.value.preferredEnvironments,
-    specials: creature.value.specials,
-    attacks: creature.value.attacks,
+    name: props.creature.name,
+    class: props.creature.isElite ? "Elite" : "Minion",
+    types: props.creature.types,
+    hp: props.creature.hp,
+    melee: props.creature.melee,
+    ranged: props.creature.ranged,
+    strength: props.creature.strength,
+    agility: props.creature.agility,
+    defense: props.creature.defense,
+    intelligence: props.creature.intelligence,
+    willpower: props.creature.willpower,
+    attackType: props.creature.isRanged ? "Ranged" : "Melee",
+    resistance: props.creature.resistance,
+    armorDice: props.creature.armorDice,
+    strikes: props.creature.strikes,
+    levels: props.creature.levels,
+    xp: props.creature.xp,
+    preferredEnvironments: props.creature.preferredEnvironments,
+    specials: props.creature.specials,
+    attacks: props.creature.attacks,
   };
 
   // Add the creature to Firestore.
-  creatureStore.addCreature(data);
-  emit("creatureAdded");
-
-  // Clear the form.
-  creature.value = {
-    name: "",
-    class: "",
-    isElite: false,
-    types: [],
-    hp: 1,
-    melee: 0,
-    ranged: 0,
-    strength: 1,
-    agility: 1,
-    defense: 1,
-    intelligence: 1,
-    willpower: 1,
-    isRanged: false,
-    attackType: "Melee",
-    resistance: 0,
-    armorDice: 0,
-    strikes: 1,
-    levels: [],
-    xp: 1,
-    preferredEnvironments: [],
-    specials: [],
-    attacks: [],
-  };
+  creatureStore.save(data);
+  emit("creature-added");
 }
 
+const addOrEdit = computed(() => {
+  return props.creature.name ? "Edit" : "Add";
+});
+
 function addLevel() {
-  creature.value.levels.push({level:'',models:''});
+  props.creature.levels.push({level:'',models:''});
 }
 
 function removeLevel(index) {
-  creature.value.levels.splice(index, 1);
+  props.creature.levels.splice(index, 1);
 }
 
 function addSpecial() {
-  creature.value.specials.push('');
+  props.creature.specials.push('');
 }
 
 function removeSpecial(index) {
-  creature.value.specials.splice(index, 1);
+  props.creature.specials.splice(index, 1);
 }
 
 function addMelee() {
-  creature.value.attacks.push({type:'Melee',name:'',damage:'',special:''});
+  props.creature.attacks.push({type:'Melee',name:'',damage:'',special:''});
 }
 
 function addRanged() {
-  creature.value.attacks.push({type:'Ranged',name:'',damage:'',special:''});
+  props.creature.attacks.push({type:'Ranged',name:'',damage:'',special:''});
 }
 
 function removeAttack(index) {
-  creature.value.attacks.splice(index, 1);
+  props.creature.attacks.splice(index, 1);
 }
-
-creature.class = computed(() => {
-  return creature.value.isElite ? "Elite" : "Minion";
-});
 </script>
+
 
 <style src="@vueform/multiselect/themes/default.css"></style>
 
@@ -139,7 +120,7 @@ input, textarea {
 }
 </style>
 <template>
-  <p class="text-xl font-bold">Add New Creature</p>
+  <p class="text-xl font-bold">{{ addOrEdit }} Creature</p>
   <form @submit.prevent="addCreature" class="grid grid-flow-row">
     <div class="form-group">
       <label for="name">Name:</label>
@@ -155,7 +136,7 @@ input, textarea {
     </div>
     <div class="form-group">
       <label for="types">Type:</label>
-      <Multiselect class="text-black" v-model="creature.types" :options="creatureStore.allTypes" mode="tags" :taggable="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
+      <Multiselect class="text-black" v-model="creature.types" :value="creature.types" :options="creatureStore.allTypes" mode="tags" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
     </div>
     <div class="form-group">
       <label for="hp">HP</label>
@@ -231,7 +212,7 @@ input, textarea {
     </div>
     <div class="form-group">
       <label for="preferredEnvironments">Preferred Environments:</label>
-      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :options="uniqueEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
+      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="uniqueEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
     </div>
     <div class="form-group">
       <label for="specials">Specials:</label>
@@ -256,7 +237,7 @@ input, textarea {
               <label class="basis-1/4 text-black">Damage:</label>
               <input class="form-control -ml-0.5" type="text" v-model="attack.damage">
               <label class="basis-1/4 text-black">Special:</label>
-              <input class="form-control -ml-0.5" type="text" v-model="attack.special">
+              <textarea class="form-control -ml-0.5 textarea" v-model="attack.special"></textarea>
           </div>
           <div class="btn btn-sm btn-error place-self-center" @click="removeAttack(index)">-</div>
         </div>
@@ -267,6 +248,6 @@ input, textarea {
         <div class="btn btn-sm" @click="addRanged">+ Ranged</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-sm mt-3">Add Creature</button>
+    <button type="submit" class="btn btn-primary btn-sm mt-3">{{ addOrEdit }} Creature</button>
   </form>
 </template>
