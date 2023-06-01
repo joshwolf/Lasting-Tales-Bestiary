@@ -17,6 +17,9 @@ export const useCreatureStore = defineStore('creatures', {
       db.collection("creatures").add(creature)
     }
   },
+  getters: {
+    allTypes: (state) => state.creatures.map((creature) => creature.types).flat().filter((type, index, self) => self.indexOf(type) === index),
+  },
   persist: true
 })
   
