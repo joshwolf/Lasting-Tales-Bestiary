@@ -130,7 +130,7 @@ input, textarea {
       <label for="isElite">Class:</label>
       <label class="label cursor-pointer justify-normal">
         <span class="text-white flex-grow-0">Minion</span> 
-        <input type="checkbox" id="isElite" v-model="creature.isElite" class="toggle mx-4" />
+        <input type="checkbox" id="isElite" v-model="creature.isElite" class="toggle mx-4" :checked="creature.class == 'Elite'" />
         <span class="text-white">Elite</span> 
       </label>
     </div>
@@ -174,7 +174,7 @@ input, textarea {
       <label for="isRanged">Attack Type:</label>
       <label class="label cursor-pointer justify-normal">
         <span class="text-white flex-grow-0">Melee</span> 
-        <input type="checkbox" id="isRanged" v-model="creature.isRanged" class="toggle mx-4" />
+        <input type="checkbox" id="isRanged" v-model="creature.isRanged" class="toggle mx-4" :checked="creature.attackType == 'Ranged'" />
         <span class="text-white">Ranged</span> 
       </label>
     </div>
@@ -234,6 +234,18 @@ input, textarea {
           <div class="flex flex-wrap basis-10/12 p-1 gap-y-3" v-if="attack.type == 'Melee'">
               <label class="basis-1/4 text-black">Name:</label>
               <input class="form-control -ml-0.5" type="text" v-model="attack.name">
+              <label class="basis-1/4 text-black">Damage:</label>
+              <input class="form-control -ml-0.5" type="text" v-model="attack.damage">
+              <label class="basis-1/4 text-black">Special:</label>
+              <textarea class="form-control -ml-0.5 textarea" v-model="attack.special"></textarea>
+          </div>
+          <div class="flex flex-wrap basis-10/12 p-1 gap-y-3" v-if="attack.type == 'Ranged'">
+              <label class="basis-1/4 text-black">Name:</label>
+              <input class="form-control -ml-0.5" type="text" v-model="attack.name">
+              <label class="basis-1/4 text-black">Short:</label>
+              <input class="form-control -ml-0.5" type="number" v-model="attack.short">
+              <label class="basis-1/4 text-black">Long:</label>
+              <input class="form-control -ml-0.5" type="number" v-model="attack.long">
               <label class="basis-1/4 text-black">Damage:</label>
               <input class="form-control -ml-0.5" type="text" v-model="attack.damage">
               <label class="basis-1/4 text-black">Special:</label>

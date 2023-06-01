@@ -18,7 +18,7 @@ function attackSpecialPrefix(special) {
 function attackSpecialInfo(special) {
   if(!special) return '-'
   const specialArray = special.split(':')
-  if (specialArray.length === 1) return
+  if (specialArray.length === 1) return special
   return specialArray[1]
 }
 </script>
@@ -105,14 +105,25 @@ function attackSpecialInfo(special) {
           <p v-for="special in creature.specials">{{ special }}</p>
         </div>
       </div>
-      <div v-for="attack in creature.attacks" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
+      <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Ranged')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
+        <div class="text-center basis-full border-b border-gray-600 text-white font-bold bg-gray-600">{{ attack.type }} Attack: {{ attack.name }}</div>
+        <div class="text-center flex-grow-none basis-1/6 font-bold border-b border-r border-gray-600 bg-gray-300">Short</div>
+        <div class="text-center flex-grow-none basis-1/6 font-bold border-b border-r border-gray-600 bg-gray-300">Long</div>
+        <div class="text-center flex-grow-none basis-1/6 font-bold border-b border-r border-gray-600 bg-gray-300">Damage</div>
+        <div class="text-center flex-grow basis-1/2 font-bold border-b border-gray-600 bg-gray-300">Special</div>
+        <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.short }}</p></div>
+        <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.long || '-' }}</p></div>
+        <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
+        <div class="text-center special flex-grow basis-1/2 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
+      </div>
+      <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Melee')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
         <div class="text-center basis-full border-b border-gray-600 text-white font-bold bg-gray-600">{{ attack.type }} Attack: {{ attack.name }}</div>
         <div class="text-center flex-grow-none basis-2/5 font-bold border-b border-r border-gray-600 bg-gray-300">Damage</div>
         <div class="text-center flex-grow basis-2/5 font-bold border-b border-gray-600 bg-gray-300">Special</div>
         <div class="text-center damage flex-grow-none basis-2/5 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
         <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
-      <div class="btn btn-sm w-10" @click="emit('update-creature', creature)">Edit</div>
+      <div class="btn btn-sm w-12" @click="emit('update-creature', creature)">Edit</div>
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
 import Creature from "./Creature.vue";
 import { useCreatureStore } from "../stores/creatures";
 import CreatureForm from "./CreatureForm.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const creatureStore = useCreatureStore();
 const modalToggle = ref();
@@ -26,7 +26,30 @@ onkeydown = (e) => {
   }
 };
 function createCreature() {
-  currentCreature.value = {};
+  currentCreature.value = {
+      name: "",
+      class: "",
+      isElite: false,
+      types: [],
+      hp: 1,
+      melee: 0,
+      ranged: 0,
+      strength: 1,
+      agility: 1,
+      defense: 1,
+      intelligence: 1,
+      willpower: 1,
+      isRanged: false,
+      attackType: "Melee",
+      resistance: 0,
+      armorDice: 0,
+      strikes: 1,
+      levels: [],
+      xp: 1,
+      preferredEnvironments: [],
+      specials: [''],
+      attacks: [],
+    };
   console.log(currentCreature)
   modalToggle.value.checked = true;
 }
@@ -35,12 +58,20 @@ function updateCreature(creature) {
   currentCreature.value = creature;
   modalToggle.value.checked = true;
 }
+
+const sortedCreatures = computed(() => {
+  return creatureStore.creatures.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+    return 0;
+  });
+});
 </script>
 
 <style scoped>
 .creatureAdded {
   transition: all 0.3s ease-in-out;
-  transform: translateX(100%);
+  transform: translateX(-100%);
 }
 
 .creatureAdded.active {
@@ -57,8 +88,8 @@ function updateCreature(creature) {
       <CreatureForm @creature-added="closeForm" ref="creatureForm" :creature="currentCreature"></CreatureForm>
     </div>
   </div>
-  <Creature v-if="creatureStore.creatures" class="mb-5" v-for="creature in creatureStore.creatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
-  <div class="creatureAdded toast toast-top toast-end" ref="creatureAdded">
+  <Creature class="mb-5" v-for="creature in sortedCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
+  <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">
     <div class="alert alert-success">
       <span>Creature Saved!</span>
     </div>
