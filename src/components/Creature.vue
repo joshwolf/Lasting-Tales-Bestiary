@@ -61,7 +61,7 @@
         <div class="flex-grow-none basis-1/5 px-2 font-extrabold bg-gray-600 h-12 flex place-items-center">
           <p class="text-white font-extrabold">Level</p>
         </div>
-        <div class="flex-grow px-5 h-12 basis-2/5">
+        <div class="flex-grow px-5 h-12 basis-2/5 items-center flex">
           <ul>
             <li v-for="level in creature.levels">
             {{ level.level }} ({{ level.models }} {{ $filters.pluralize(level.models, 'model') }})

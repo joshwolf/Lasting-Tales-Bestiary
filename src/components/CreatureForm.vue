@@ -2,7 +2,9 @@
 import { ref, computed } from "vue";
 import Multiselect from '@vueform/multiselect'
 import { useCreatureStore } from "../stores/creatures";
+
 const creatureStore = useCreatureStore();
+const emit = defineEmits(['creatureAdded']);
 const uniqueEnvironments = ['Dungeon', 'Settlement', 'Wilderness', 'Any'];
 const creature = ref({
   name: "",
@@ -54,8 +56,8 @@ function addCreature() {
   };
 
   // Add the creature to Firestore.
-  console.log(data)
   creatureStore.addCreature(data);
+  emit("creatureAdded");
 
   // Clear the form.
   creature.value = {
