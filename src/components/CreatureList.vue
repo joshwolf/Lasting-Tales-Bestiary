@@ -1,15 +1,18 @@
 <script setup>
 import Creature from "./Creature.vue";
 import { useCreatureStore } from "../stores/creatures";
+import { useAuthStore } from '@/stores/auth'
 import CreatureForm from "./CreatureForm.vue";
 import { ref, computed } from "vue";
 
 const creatureStore = useCreatureStore();
+const authStore = useAuthStore();
 const modalToggle = ref();
 const creatureAdded = ref();
 const creatureForm = ref();
 const currentCreature = ref({});
 const isEdit = ref(false);
+const user = ref(computed(() => authStore.user !== null))
 
 const searchQuery = ref("");
 const searchTypes = ref([]);
@@ -107,7 +110,7 @@ function resetSearch() {
 </style>
 
 <template>
-  <div for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
+  <div v-if="user" for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
   <div class="flex align-middle gap-1 place-items-center">
     <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
     <label class="swap" v-for="creatureClass in ['Minion','Elite']">
@@ -134,6 +137,7 @@ function resetSearch() {
       <CreatureForm @creature-added="closeForm" ref="creatureForm" :is-edit="isEdit" :creature="currentCreature"></CreatureForm>
     </div>
   </div>
+  <div v-if="filteredCreatures.length == 0" class="text-center rounded-xl bg-black p-5 text-2xl text-white">No Creatures Found</div>
   <Creature class="mb-5 w-[80vw]" v-for="creature in filteredCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
   <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">
     <div class="alert alert-success">

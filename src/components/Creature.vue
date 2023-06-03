@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, onMounted } from 'vue';
+import { defineProps, ref } from 'vue';
 const props = defineProps({
   creature: {
     type: Object,
@@ -8,6 +8,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update-creature'])
+const creatureSelected = ref(false)
 
 function attackSpecialPrefix(special) {
   const specialArray = special.split(':')
@@ -24,7 +25,7 @@ function attackSpecialInfo(special) {
 </script>
 
 <template>
-  <div class="card w-auto bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
+  <div class="card bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
     <div class="card-body">
       <div class="flex">
         <p class="card-title flex-grow-0 text-5xl font-extrabold">{{ creature.name }}</p>
@@ -34,6 +35,7 @@ function attackSpecialInfo(special) {
         </div>
       </div>
       <p>{{ creature.types.join(', ') }}</p>
+      <div><input type="checkbox" v-model="creatureSelected" @change="console.log(creatureSelected)"></div>
       <div class="stats w-full">
         <div class="stat">
           <div class="stat-title">MEL</div>

@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body.body {
+  place-items: start;
+}
 
 #app {
   max-width: 1280px;
