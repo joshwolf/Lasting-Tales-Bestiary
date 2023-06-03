@@ -17,6 +17,7 @@ const searchQuery = ref("");
 const searchTypes = ref([]);
 const searchEnvironments = ref([]);
 const searchClasses = ref([]);
+const searchFamilies = ref([]);
 const allCreatures = ref(true);
 
 function closeForm() {
@@ -40,6 +41,7 @@ function createCreature() {
       name: "",
       class: "",
       isElite: false,
+      family: "",
       types: [],
       hp: 1,
       melee: 0,
@@ -84,7 +86,9 @@ const filteredCreatures = computed(() => {
           creature.preferredEnvironments.includes(env)
         )) &&
       (searchClasses.value.length == 0 ||
-        searchClasses.value.some((cls) => creature.class == cls))
+        searchClasses.value.some((cls) => creature.class == cls)) &&
+      (searchFamilies.value.length == 0 ||
+        searchFamilies.value.some((fam) => creature.family == fam))
     )
   }).sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
@@ -121,23 +125,38 @@ function resetSearch() {
       <span class="label-text">All</span> 
     </label>
   </div>
-  <div class="flex align-middle gap-1 place-items-center" v-if="allCreatures">
+  <div class="flex align-middle gap-3 place-items-center" v-if="allCreatures">
     <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
-    <label class="swap" v-for="creatureClass in ['Minion','Elite']">
-      <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
-      <div class="swap-on"><div class="badge badge-neutral">{{ creatureClass }}</div></div>
-      <div class="swap-off"><div class="badge badge-info">{{ creatureClass }}</div></div>
-    </label>
-    <label class="swap" v-for="creatureType in creatureStore.allTypes">
-      <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
-      <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
-      <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
-    </label>
-    <label class="swap" v-for="creatureEnvironment in creatureStore.allEnvironments">
-      <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment"/>
-      <div class="swap-on"><div class="badge badge-neutral">{{ creatureEnvironment }}</div></div>
-      <div class="swap-off"><div class="badge badge-accent">{{ creatureEnvironment }}</div></div>
-    </label>
+    <div class="flex flex-wrap gap-1">
+      <span>
+        <label class="swap" v-for="creatureClass in ['Minion','Elite']">
+          <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
+          <div class="swap-on"><div class="badge badge-neutral">{{ creatureClass }}</div></div>
+          <div class="swap-off"><div class="badge badge-info">{{ creatureClass }}</div></div>
+        </label>
+      </span>
+      <span>
+        <label class="swap" v-for="creatureType in creatureStore.allTypes">
+          <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
+          <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
+          <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
+        </label>
+      </span>
+      <span>
+        <label class="swap" v-for="creatureFamily in creatureStore.allFamilies">
+          <input type="checkbox" v-model="searchFamilies" :value="creatureFamily"/>
+          <div class="swap-on"><div class="badge badge-neutral">{{ creatureFamily }}</div></div>
+          <div class="swap-off"><div class="badge badge-warning">{{ creatureFamily }}</div></div>
+        </label>
+      </span>
+      <span>
+        <label class="swap" v-for="creatureEnvironment in creatureStore.allEnvironments">
+          <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment"/>
+          <div class="swap-on"><div class="badge badge-neutral">{{ creatureEnvironment }}</div></div>
+          <div class="swap-off"><div class="badge badge-accent">{{ creatureEnvironment }}</div></div>
+        </label>
+      </span>
+    </div>
     <div class="btn btn-error btn-xs" @click="resetSearch">Reset</div>
   </div>
   <input type="checkbox" id="newCreature" class="modal-toggle" ref="modalToggle" />
