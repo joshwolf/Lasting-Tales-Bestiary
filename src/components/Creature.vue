@@ -1,11 +1,17 @@
 <script setup>
 import { defineProps, ref } from 'vue';
+import { useCreatureStore } from '@/stores/creatures';
+import { useAuthStore } from '@/stores/auth'
+
 const props = defineProps({
   creature: {
     type: Object,
     default: {}
   }
 })
+
+const creatureStore = useCreatureStore();
+const authStore = useAuthStore();
 
 const emit = defineEmits(['update-creature'])
 const creatureSelected = ref(false)
@@ -22,11 +28,20 @@ function attackSpecialInfo(special) {
   if (specialArray.length === 1) return special
   return specialArray[1]
 }
+
+function toggleCreature(creature) {
+  if(creatureStore.selectedCreatures.includes(creature)) {
+    creatureStore.selectedCreatures = creatureStore.selectedCreatures.filter(c => c !== creature)
+  } else {
+    creatureStore.selectedCreatures.push(creature)
+  }
+}
 </script>
 
 <template>
   <div class="card bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
     <div class="card-body">
+      <div><input type="checkbox" class="checkbox checkbox-info border-2" v-model="creatureSelected" @change="toggleCreature(creature)"></div>
       <div class="flex">
         <p class="card-title flex-grow-0 text-5xl font-extrabold">{{ creature.name }}</p>
         <p class="self-end flex-grow">({{ creature.class }})</p>
@@ -35,7 +50,6 @@ function attackSpecialInfo(special) {
         </div>
       </div>
       <p>{{ creature.types.join(', ') }}</p>
-      <div><input type="checkbox" v-model="creatureSelected" @change="console.log(creatureSelected)"></div>
       <div class="stats w-full">
         <div class="stat">
           <div class="stat-title">MEL</div>
@@ -125,7 +139,7 @@ function attackSpecialInfo(special) {
         <div class="text-center damage flex-grow-none basis-2/5 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
         <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
-      <div class="btn btn-sm w-12" @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
+      <div v-if="authStore.isAuthenticated" class="btn btn-sm w-12" @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
     </div>
   </div>
 </template>

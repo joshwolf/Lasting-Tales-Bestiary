@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="signIn" v-if="!user">
+  <form @submit.prevent="signIn" v-if="!authStore.isAuthenticated">
     <input type="email" class="input input-bordered" v-model="email" placeholder="Email" />
     <input type="password" class="input input-bordered" v-model="password" placeholder="Password" />
     <button type="submit" class="btn btn-sm">Sign In</button>
@@ -15,9 +15,6 @@ import { useAuthStore } from '@/stores/auth'
 import { computed, ref } from 'vue'
 
     const authStore = useAuthStore()
-
-    const user = ref(computed(() => authStore.user !== null))
-
     const email = ref('')
     const password = ref('')
 

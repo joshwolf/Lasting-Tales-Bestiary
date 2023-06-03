@@ -12,12 +12,12 @@ const creatureAdded = ref();
 const creatureForm = ref();
 const currentCreature = ref({});
 const isEdit = ref(false);
-const user = ref(computed(() => authStore.user !== null))
 
 const searchQuery = ref("");
 const searchTypes = ref([]);
 const searchEnvironments = ref([]);
 const searchClasses = ref([]);
+const allCreatures = ref(true);
 
 function closeForm() {
   modalToggle.value.checked = false;
@@ -34,6 +34,7 @@ onkeydown = (e) => {
     modalToggle.value.checked = false;
   }
 };
+
 function createCreature() {
   currentCreature.value = {
       name: "",
@@ -68,6 +69,8 @@ function updateCreature(creature) {
   isEdit.value = true;
   modalToggle.value.checked = true;
 }
+
+const displayCreatures = computed(() => (allCreatures.value == true ? filteredCreatures.value : creatureStore.selectedCreatures));
 
 const filteredCreatures = computed(() => {
   return creatureStore.creatures.filter((creature) => {
@@ -110,8 +113,15 @@ function resetSearch() {
 </style>
 
 <template>
-  <div v-if="user" for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
-  <div class="flex align-middle gap-1 place-items-center">
+  <div v-if="authStore.isAuthenticated" for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
+  <div class="form-control flex place-items-end">
+    <label class="label cursor-pointer flex gap-1">
+      <span class="label-text">Selected</span> 
+      <input type="checkbox" class="toggle" v-model="allCreatures" />
+      <span class="label-text">All</span> 
+    </label>
+  </div>
+  <div class="flex align-middle gap-1 place-items-center" v-if="allCreatures">
     <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
     <label class="swap" v-for="creatureClass in ['Minion','Elite']">
       <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
@@ -138,7 +148,7 @@ function resetSearch() {
     </div>
   </div>
   <div v-if="filteredCreatures.length == 0" class="text-center rounded-xl bg-black p-5 text-2xl text-white">No Creatures Found</div>
-  <Creature class="mb-5 w-[80vw]" v-for="creature in filteredCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
+  <Creature class="mb-5 w-[80vw]" v-for="creature in displayCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
   <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">
     <div class="alert alert-success">
       <span>Creature Saved!</span>

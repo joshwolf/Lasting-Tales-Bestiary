@@ -9,7 +9,8 @@ import { collection } from 'firebase/firestore'
 export const useCreatureStore = defineStore('creatures', {
   state: () => {
     return {
-      creatures: useCollection(collection(db, 'creatures'))
+      creatures: useCollection(collection(db, 'creatures')),
+      selectedCreatures: []
     }
   },
   actions: {
