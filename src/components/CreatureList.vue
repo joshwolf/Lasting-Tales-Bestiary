@@ -10,6 +10,7 @@ const creatureAdded = ref();
 const creatureForm = ref();
 const currentCreature = ref({});
 const searchQuery = ref("");
+const isEdit = ref(false);
 
 function closeForm() {
   modalToggle.value.checked = false;
@@ -51,12 +52,13 @@ function createCreature() {
       specials: [''],
       attacks: [],
     };
-  console.log(currentCreature)
+  isEdit.value = false;
   modalToggle.value.checked = true;
 }
 
 function updateCreature(creature) {
   currentCreature.value = creature;
+  isEdit.value = true;
   modalToggle.value.checked = true;
 }
 
@@ -90,7 +92,7 @@ const filteredCreatures = computed(() => {
   <div class="modal cursor-pointer">
     <div class="modal-box relative bg-slate-800 text-white max-w-xl">
       <label for="newCreature" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-      <CreatureForm @creature-added="closeForm" ref="creatureForm" :creature="currentCreature"></CreatureForm>
+      <CreatureForm @creature-added="closeForm" ref="creatureForm" :is-edit="isEdit" :creature="currentCreature"></CreatureForm>
     </div>
   </div>
   <Creature class="mb-5 w-[80vw]" v-for="creature in filteredCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>

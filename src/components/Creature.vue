@@ -123,7 +123,7 @@ function attackSpecialInfo(special) {
         <div class="text-center damage flex-grow-none basis-2/5 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
         <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
-      <div class="btn btn-sm w-12" @click="emit('update-creature', creature)">Edit</div>
+      <div class="btn btn-sm w-12" @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
     </div>
   </div>
 </template>

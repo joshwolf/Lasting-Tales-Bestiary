@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, toRefs, defineProps } from "vue";
+import { ref, computed, onMounted, defineProps } from "vue";
 import Multiselect from '@vueform/multiselect'
 import { useCreatureStore } from "../stores/creatures";
 
@@ -30,6 +30,10 @@ const props = defineProps({
       specials: [''],
       attacks: [],
     }
+  },
+  isEdit: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -120,7 +124,7 @@ input, textarea {
 }
 </style>
 <template>
-  <p class="text-xl font-bold">{{ addOrEdit }} Creature</p>
+  <p class="text-xl font-bold">{{ isEdit ? 'Edit' : 'Add' }} Creature</p>
   <form @submit.prevent="addCreature" class="grid grid-flow-row">
     <div class="form-group">
       <label for="name">Name:</label>
