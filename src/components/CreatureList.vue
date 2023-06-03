@@ -9,6 +9,7 @@ const modalToggle = ref();
 const creatureAdded = ref();
 const creatureForm = ref();
 const currentCreature = ref({});
+const searchQuery = ref("");
 
 function closeForm() {
   modalToggle.value.checked = false;
@@ -59,8 +60,11 @@ function updateCreature(creature) {
   modalToggle.value.checked = true;
 }
 
-const sortedCreatures = computed(() => {
-  return creatureStore.creatures.sort((a, b) => {
+const filteredCreatures = computed(() => {
+  if (!searchQuery.value || searchQuery.value == '') return creatureStore.creatures;
+  return creatureStore.creatures.filter((creature) => {
+    return creature.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+  }).sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
     return 0;
@@ -81,6 +85,7 @@ const sortedCreatures = computed(() => {
 
 <template>
   <div for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
+  <div><input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" /></div>
   <input type="checkbox" id="newCreature" class="modal-toggle" ref="modalToggle" />
   <div class="modal cursor-pointer">
     <div class="modal-box relative bg-slate-800 text-white max-w-xl">
@@ -88,7 +93,7 @@ const sortedCreatures = computed(() => {
       <CreatureForm @creature-added="closeForm" ref="creatureForm" :creature="currentCreature"></CreatureForm>
     </div>
   </div>
-  <Creature class="mb-5" v-for="creature in sortedCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
+  <Creature class="mb-5 w-[80vw]" v-for="creature in filteredCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
   <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">
     <div class="alert alert-success">
       <span>Creature Saved!</span>

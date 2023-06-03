@@ -21,6 +21,15 @@ export const useCreatureStore = defineStore('creatures', {
     allTypes: (state) => state.creatures.map((creature) => creature.types)
       .flat()
       .filter((type, index, self) => self.indexOf(type) === index),
+    filteredCreatures: (state) => (filterText) => {
+      console.log('!',filterText,'!')
+      if (!filterText) {
+        return state.creatures
+      }
+      return state.creatures.filter((creature) => {
+        return creature.name.toLowerCase().includes(filterText.toLowerCase())
+      })
+    }
   },
   persist: true
 })

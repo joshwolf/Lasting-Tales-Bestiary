@@ -24,7 +24,7 @@ function attackSpecialInfo(special) {
 </script>
 
 <template>
-  <div class="card w-auto bg-slate-200 shadow-xl">
+  <div class="card w-auto bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
     <div class="card-body">
       <div class="flex">
         <p class="card-title flex-grow-0 text-5xl font-extrabold">{{ creature.name }}</p>
