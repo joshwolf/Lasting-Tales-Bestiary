@@ -44,7 +44,7 @@ function toggleCreature(creature) {
       <div><input type="checkbox" class="checkbox checkbox-info border-2" v-model="creatureSelected" @change="toggleCreature(creature)"></div>
       <div class="flex">
         <p class="card-title flex-grow-0 text-5xl font-extrabold">{{ creature.name }}</p>
-        <p class="self-end flex-grow">({{ creature.class }})</p>
+        <p class="self-end flex-grow">({{ creature.class }} {{ creature.family }})</p>
         <div class="self-start mask mask-heart bg-red-600 h-12 w-12 grid place-items-center text-white font-extrabold">
           {{ creature.hp }}
         </div>

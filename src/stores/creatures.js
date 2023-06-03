@@ -22,6 +22,9 @@ export const useCreatureStore = defineStore('creatures', {
     allTypes: (state) => state.creatures.map((creature) => creature.types)
       .flat()
       .filter((type, index, self) => self.indexOf(type) === index),
+    allFamilies: (state) => state.creatures.map((creature) => creature.family)
+      .flat()
+      .filter((family, index, self) => self.indexOf(family) === index),
     filteredCreatures: (state) => (filterText) => {
       console.log('!',filterText,'!')
       if (!filterText) {

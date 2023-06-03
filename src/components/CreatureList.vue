@@ -148,7 +148,9 @@ function resetSearch() {
     </div>
   </div>
   <div v-if="filteredCreatures.length == 0" class="text-center rounded-xl bg-black p-5 text-2xl text-white">No Creatures Found</div>
-  <Creature class="mb-5 w-[80vw]" v-for="creature in displayCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
+  <div class="flex w-[90vw] flex-wrap">
+    <Creature class="mb-5 flex-grow" v-for="creature in displayCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
+  </div>
   <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">
     <div class="alert alert-success">
       <span>Creature Saved!</span>

@@ -13,3 +13,5 @@ The app is built in Vue 3 and uses Tailwind and DaisyUI.
 ### TO DO:
 - Mobile cleanup
 - Create scenario options based on selected creatures + party level
+- Support for homebrew creatures
+

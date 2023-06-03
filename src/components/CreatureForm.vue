@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, defineProps } from "vue";
+import { computed, defineProps } from "vue";
 import Multiselect from '@vueform/multiselect'
 import { useCreatureStore } from "../stores/creatures";
 
@@ -10,6 +10,7 @@ const props = defineProps({
       name: "",
       class: "",
       isElite: false,
+      family: "",
       types: [],
       hp: 1,
       melee: 0,
@@ -45,6 +46,7 @@ function addCreature() {
     name: props.creature.name,
     class: props.creature.isElite ? "Elite" : "Minion",
     types: props.creature.types,
+    family: props.creature.family,
     hp: props.creature.hp,
     melee: props.creature.melee,
     ranged: props.creature.ranged,
@@ -136,6 +138,10 @@ input, textarea {
         <input type="checkbox" id="isElite" v-model="creature.isElite" class="toggle mx-4" :checked="creature.class == 'Elite'" />
         <span class="text-white">Elite</span> 
       </label>
+    </div>
+    <div class="form-group">
+      <label for="family">Family:</label>
+      <Multiselect v-model="creature.family" class="text-black" :value="creature.family" :options="creatureStore.allFamilies" mode="single" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Family" :allow-empty="false" :createOption="true" :searchable="true" max="1" />
     </div>
     <div class="form-group">
       <label for="types">Type:</label>
