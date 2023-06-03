@@ -9,8 +9,12 @@ const modalToggle = ref();
 const creatureAdded = ref();
 const creatureForm = ref();
 const currentCreature = ref({});
-const searchQuery = ref("");
 const isEdit = ref(false);
+
+const searchQuery = ref("");
+const searchTypes = ref([]);
+const searchEnvironments = ref([]);
+const searchClasses = ref([]);
 
 function closeForm() {
   modalToggle.value.checked = false;
@@ -63,15 +67,32 @@ function updateCreature(creature) {
 }
 
 const filteredCreatures = computed(() => {
-  if (!searchQuery.value || searchQuery.value == '') return creatureStore.creatures;
   return creatureStore.creatures.filter((creature) => {
-    return creature.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+    return (
+      (searchQuery.value == '' || 
+        creature.name.toLowerCase().includes(searchQuery.value.toLowerCase())) &&
+      (searchTypes.value.length == 0 ||
+        searchTypes.value.some((type) => creature.types.includes(type))) &&
+      (searchEnvironments.value.length == 0 ||
+        searchEnvironments.value.some((env) =>
+          creature.preferredEnvironments.includes(env)
+        )) &&
+      (searchClasses.value.length == 0 ||
+        searchClasses.value.some((cls) => creature.class == cls))
+    )
   }).sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
     return 0;
   });
 });
+
+function resetSearch() {
+  searchQuery.value = "";
+  searchTypes.value = [];
+  searchEnvironments.value = [];
+}
+
 </script>
 
 <style scoped>
@@ -87,7 +108,25 @@ const filteredCreatures = computed(() => {
 
 <template>
   <div for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
-  <div><input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" /></div>
+  <div class="flex align-middle gap-1 place-items-center">
+    <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
+    <label class="swap" v-for="creatureClass in ['Minion','Elite']">
+      <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
+      <div class="swap-on"><div class="badge badge-neutral">{{ creatureClass }}</div></div>
+      <div class="swap-off"><div class="badge badge-info">{{ creatureClass }}</div></div>
+    </label>
+    <label class="swap" v-for="creatureType in creatureStore.allTypes">
+      <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
+      <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
+      <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
+    </label>
+    <label class="swap" v-for="creatureEnvironment in creatureStore.allEnvironments">
+      <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment"/>
+      <div class="swap-on"><div class="badge badge-neutral">{{ creatureEnvironment }}</div></div>
+      <div class="swap-off"><div class="badge badge-accent">{{ creatureEnvironment }}</div></div>
+    </label>
+    <div class="btn btn-error btn-xs" @click="resetSearch">Reset</div>
+  </div>
   <input type="checkbox" id="newCreature" class="modal-toggle" ref="modalToggle" />
   <div class="modal cursor-pointer">
     <div class="modal-box relative bg-slate-800 text-white max-w-xl">

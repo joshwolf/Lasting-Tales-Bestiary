@@ -29,7 +29,8 @@ export const useCreatureStore = defineStore('creatures', {
       return state.creatures.filter((creature) => {
         return creature.name.toLowerCase().includes(filterText.toLowerCase())
       })
-    }
+    },
+    allEnvironments: (state) => ['Dungeon', 'Settlement', 'Wilderness', 'Any']
   },
   persist: true
 })

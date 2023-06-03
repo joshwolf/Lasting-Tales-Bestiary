@@ -39,7 +39,6 @@ const props = defineProps({
 
 const creatureStore = useCreatureStore();
 const emit = defineEmits(['creature-added']);
-const uniqueEnvironments = ['Dungeon', 'Settlement', 'Wilderness', 'Any'];
 
 function addCreature() {
   const data = {
@@ -216,7 +215,7 @@ input, textarea {
     </div>
     <div class="form-group">
       <label for="preferredEnvironments">Preferred Environments:</label>
-      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="uniqueEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
+      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="creatureStore.allEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
     </div>
     <div class="form-group">
       <label for="specials">Specials:</label>
