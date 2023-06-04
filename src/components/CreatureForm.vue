@@ -25,7 +25,7 @@ const props = defineProps({
       resistance: 0,
       armorDice: 0,
       strikes: 1,
-      levels: [],
+      levels: [{level:'',models:''}],
       xp: 1,
       preferredEnvironments: [],
       specials: [''],
@@ -72,7 +72,7 @@ function addCreature() {
 }
 
 const addOrEdit = computed(() => {
-  return props.creature.name ? "Edit" : "Add";
+  return props.creature.name == '' ? "Edit" : "Add";
 });
 
 function addLevel() {
@@ -141,11 +141,11 @@ input, textarea {
     </div>
     <div class="form-group">
       <label for="family">Family:</label>
-      <Multiselect v-model="creature.family" class="text-black" :value="creature.family" :options="creatureStore.allFamilies" mode="single" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Family" :allow-empty="false" :createOption="true" :searchable="true" max="1" />
+      <Multiselect id="family" v-model="creature.family" class="text-black" :value="creature.family" :options="creatureStore.allFamilies" mode="single" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Family" :allow-empty="false" :createOption="true" :searchable="true" max="1" />
     </div>
     <div class="form-group">
       <label for="types">Type:</label>
-      <Multiselect class="text-black" v-model="creature.types" :value="creature.types" :options="creatureStore.allTypes" mode="tags" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
+      <Multiselect id="types" class="text-black" v-model="creature.types" :value="creature.types" :options="creatureStore.allTypes" mode="tags" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
     </div>
     <div class="form-group">
       <label for="hp">HP</label>
@@ -183,7 +183,7 @@ input, textarea {
       <label for="isRanged">Attack Type:</label>
       <label class="label cursor-pointer justify-normal">
         <span class="text-white flex-grow-0">Melee</span> 
-        <input type="checkbox" id="isRanged" v-model="creature.isRanged" class="toggle mx-4" :checked="creature.attackType == 'Ranged'" />
+        <input id="isRanged" type="checkbox" v-model="creature.isRanged" class="toggle mx-4" :checked="creature.attackType == 'Ranged'" />
         <span class="text-white">Ranged</span> 
       </label>
     </div>
@@ -200,8 +200,8 @@ input, textarea {
       <input type="number" id="strikes" class="form-control" v-model="creature.strikes">
     </div>
     <div class="form-group">
-      <label for="levels">Levels:</label>
-      <div id="levels">
+      <label>Levels:</label>
+      <div>
         <div v-for="(level, index) in creature.levels" class="rounded-lg bg-slate-400 flex flex-wrap m-1">
           <div class="flex flex-wrap basis-10/12 p-1 gap-y-3">
             <label class="basis-1/4 text-black" for="level">Level:</label>
@@ -220,12 +220,12 @@ input, textarea {
       <input type="number" id="xp" class="form-control" v-model="creature.xp">
     </div>
     <div class="form-group">
-      <label for="preferredEnvironments">Preferred Environments:</label>
+      <label>Preferred Environments:</label>
       <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="creatureStore.allEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
     </div>
     <div class="form-group">
-      <label for="specials">Specials:</label>
-      <div id="specials">
+      <label>Specials:</label>
+      <div>
         <div v-for="(special, index) in creature.specials" class="rounded-lg bg-slate-400 flex flex-wrap m-1">
           <div class="flex flex-wrap basis-10/12 p-1 gap-y-3">
             <textarea class="textarea" v-model="creature.specials[index]"></textarea>
@@ -237,8 +237,8 @@ input, textarea {
       <div class="btn btn-sm" @click="addSpecial">+ Special</div>
     </div>
     <div class="form-group">
-      <label for="attacks">Attacks:</label>
-      <div id="attacks">
+      <label>Attacks:</label>
+      <div>
         <div v-for="(attack, index) in creature.attacks" class="rounded-lg bg-slate-400 flex flex-wrap m-1">
           <div class="flex flex-wrap basis-10/12 p-1 gap-y-3" v-if="attack.type == 'Melee'">
               <label class="basis-1/4 text-black">Name:</label>

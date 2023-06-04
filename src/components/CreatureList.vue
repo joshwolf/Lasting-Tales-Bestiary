@@ -56,7 +56,7 @@ function createCreature() {
       resistance: 0,
       armorDice: 0,
       strikes: 1,
-      levels: [],
+      levels: [{level:'',models:''}],
       xp: 1,
       preferredEnvironments: [],
       specials: [''],
@@ -127,7 +127,7 @@ function resetSearch() {
   </div>
   <div class="flex align-middle gap-3 place-items-center" v-if="allCreatures">
     <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
-    <div class="flex flex-wrap gap-1">
+    <div class="flex basis-2/3 flex-wrap gap-1">
       <span>
         <label class="swap" v-for="creatureClass in ['Minion','Elite']">
           <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
