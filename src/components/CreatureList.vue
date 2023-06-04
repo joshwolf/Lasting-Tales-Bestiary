@@ -31,7 +31,7 @@ function closeForm() {
 }
 
 onkeydown = (e) => {
-  if (e.key === "Escape") {
+  if (e.key === "Escape" && currentCreature.value.name == "") {
     modalToggle.value.checked = false;
   }
 };
@@ -128,32 +128,32 @@ function resetSearch() {
   <div class="flex align-middle gap-3 place-items-center" v-if="allCreatures">
     <input type="text" class="rounded w-60 px-2 form-input my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
     <div class="flex basis-2/3 flex-wrap gap-1">
-      <span>
+      <span class="flex gap-1">
         <label class="swap" v-for="creatureClass in ['Minion','Elite']">
           <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureClass }}</div></div>
           <div class="swap-off"><div class="badge badge-info">{{ creatureClass }}</div></div>
         </label>
       </span>
-      <span>
-        <label class="swap" v-for="creatureType in creatureStore.allTypes">
-          <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
-          <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
-          <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
-        </label>
-      </span>
-      <span>
+      <span class="flex gap-1">
         <label class="swap" v-for="creatureFamily in creatureStore.allFamilies">
           <input type="checkbox" v-model="searchFamilies" :value="creatureFamily"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureFamily }}</div></div>
           <div class="swap-off"><div class="badge badge-warning">{{ creatureFamily }}</div></div>
         </label>
       </span>
-      <span>
+      <span class="flex gap-1">
         <label class="swap" v-for="creatureEnvironment in creatureStore.allEnvironments">
           <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureEnvironment }}</div></div>
           <div class="swap-off"><div class="badge badge-accent">{{ creatureEnvironment }}</div></div>
+        </label>
+      </span>
+      <span class="flex gap-1">
+        <label class="swap" v-for="creatureType in creatureStore.allTypes">
+          <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
+          <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
+          <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
         </label>
       </span>
     </div>
@@ -167,7 +167,7 @@ function resetSearch() {
     </div>
   </div>
   <div v-if="filteredCreatures.length == 0" class="text-center rounded-xl bg-black p-5 text-2xl text-white">No Creatures Found</div>
-  <div class="flex w-[90vw] flex-wrap">
+  <div class="flex w-[90vw] flex-wrap mt-3">
     <Creature class="mb-5 flex-grow" v-for="creature in displayCreatures" :key="creature.id" :creature="creature" @update-creature="updateCreature"></Creature>
   </div>
   <div class="creatureAdded toast toast-top toast-start" ref="creatureAdded">

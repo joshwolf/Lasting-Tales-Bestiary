@@ -16,6 +16,9 @@ export const useCreatureStore = defineStore('creatures', {
   actions: {
     save(creature) {
       db.collection("creatures").doc(creature.name.split(' ').join('').toLowerCase()).set(creature)
+    },
+    delete(creature) {
+      db.collection("creatures").doc(creature.name.split(' ').join('').toLowerCase()).delete()
     }
   },
   getters: {

@@ -72,7 +72,15 @@ function addCreature() {
 }
 
 const addOrEdit = computed(() => {
-  return props.creature.name == '' ? "Edit" : "Add";
+  return props.creature.name == '' ? "Add" : "Edit";
+});
+
+const nameIsDupe = computed(() => {
+  return !props.isEdit && creatureStore.creatures.some((creature) => creature.name.toLowerCase() == props.creature.name?.toLowerCase());
+});
+
+const canSave = computed(() => {
+  return props.creature.name != '' && !nameIsDupe.value;
 });
 
 function addLevel() {
@@ -130,6 +138,7 @@ input, textarea {
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" id="name" class="form-control" required v-model="creature.name">
+      <div></div><div v-if="nameIsDupe" class="text-red-500 text-sm font-bold mt-2">That name is taken</div>
     </div>
     <div class="form-group">
       <label for="isElite">Class:</label>
@@ -141,11 +150,11 @@ input, textarea {
     </div>
     <div class="form-group">
       <label for="family">Family:</label>
-      <Multiselect id="family" v-model="creature.family" class="text-black" :value="creature.family" :options="creatureStore.allFamilies" mode="single" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Family" :allow-empty="false" :createOption="true" :searchable="true" max="1" />
+      <Multiselect id="family" v-model="creature.family" class="text-black" :value="creature.family" :options="creatureStore.allFamilies" mode="single" :allow-absent="true" :close-on-select="true" :clear-on-select="true" :preserve-search="true" placeholder="Select A Family" :allow-empty="false" :createOption="true" :searchable="true" :max="1" />
     </div>
     <div class="form-group">
       <label for="types">Type:</label>
-      <Multiselect id="types" class="text-black" v-model="creature.types" :value="creature.types" :options="creatureStore.allTypes" mode="tags" :allow-absent="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
+      <Multiselect id="types" class="text-black" v-model="creature.types" :value="creature.types" :options="creatureStore.allTypes" mode="tags" :allow-absent="true" :close-on-select="false" :clear-on-select="true" :preserve-search="true" placeholder="Select A Type" :allow-empty="false" :createOption="true" :searchable="true" />
     </div>
     <div class="form-group">
       <label for="hp">HP</label>
@@ -221,7 +230,7 @@ input, textarea {
     </div>
     <div class="form-group">
       <label>Preferred Environments:</label>
-      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="creatureStore.allEnvironments" mode="tags" :close-on-select="false" :clear-on-select="false" placeholder="Select An Environment" :allow-empty="false" />
+      <Multiselect class="text-black" v-model="creature.preferredEnvironments" :value="creature.preferredEnvironments" :options="creatureStore.allEnvironments" mode="tags" :close-on-select="false" :searchable="true" :clear-on-select="true" placeholder="Select An Environment" :allow-empty="false" />
     </div>
     <div class="form-group">
       <label>Specials:</label>
@@ -269,6 +278,6 @@ input, textarea {
         <div class="btn btn-sm" @click="addRanged">+ Ranged</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-sm mt-3">{{ addOrEdit }} Creature</button>
+    <button type="submit" :disabled="!canSave" class="btn btn-primary btn-sm mt-3">{{ addOrEdit }} Creature</button>
   </form>
 </template>

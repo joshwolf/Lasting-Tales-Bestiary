@@ -36,6 +36,11 @@ function toggleCreature(creature) {
     creatureStore.selectedCreatures.push(creature)
   }
 }
+
+function deleteCreature(creature) {
+  if(confirm('Are you sure you want to delete this ' + creature.name + '?'))
+    creatureStore.delete(creature)
+ }
 </script>
 
 <template>
@@ -140,6 +145,7 @@ function toggleCreature(creature) {
         <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
       <div v-if="authStore.isAuthenticated" class="btn btn-sm w-12" @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
+      <div v-if="authStore.isAuthenticated" class="btn btn-xs w-12" @click="deleteCreature(creature)">Delete</div>
     </div>
   </div>
 </template>
