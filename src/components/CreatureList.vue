@@ -120,9 +120,9 @@ function resetSearch() {
   <div v-if="authStore.isAuthenticated" for="newCreature" @click="createCreature" class="btn my-5">+ Creature</div>
   <div class="form-control flex place-items-end">
     <label class="label cursor-pointer flex gap-1">
-      <span class="label-text">Selected</span> 
+      <span class="label-text dark:text-white">Selected</span> 
       <input type="checkbox" class="toggle" v-model="allCreatures" />
-      <span class="label-text">All</span> 
+      <span class="label-text dark:text-white">All</span> 
     </label>
   </div>
   <div class="lg:flex align-middle gap-3 place-items-center" v-if="allCreatures">

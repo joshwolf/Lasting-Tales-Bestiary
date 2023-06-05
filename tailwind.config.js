@@ -26,6 +26,12 @@ module.exports = {
           ...require("daisyui/src/theming/themes")["[data-theme=light]"],
           "--padding-card": "1rem",
         },
+      },
+      {
+        dark: {
+          ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
+          "--padding-card": "1rem",
+        },
       }
     ],
   },
