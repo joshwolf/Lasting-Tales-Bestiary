@@ -19,4 +19,14 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+          "--padding-card": "1rem",
+        },
+      }
+    ],
+  },
 }
