@@ -46,6 +46,15 @@ function deleteCreature(creature) {
  const isChecked = computed(() => {
    return creatureStore.selectedCreatures.some(c => c.name === props.creature.name)
  })
+
+ const simpleSpecials = computed(() => {
+   return props.creature.specials.filter(s => !s.includes(':'))
+ })
+
+ const complexSpecials = computed(() => {
+   return props.creature.specials.filter(s => s.includes(':')).map(s => s.split(':'))
+ })
+ 
 </script>
 
 <template>
@@ -114,7 +123,10 @@ function deleteCreature(creature) {
         </div>
         <div class="w-full py-1 px-2 border-gray-600">
           <p class="font-bold">Special:</p>
-          <p v-for="special in creature.specials" class="text-sm">{{ special }}</p>
+          <p class="text-sm">{{ simpleSpecials.join(', ') }}</p>
+          <div v-for="special in complexSpecials">
+            <b>{{ special[0] }}: </b> {{ special[1] }}
+          </div>
         </div>
       </div>
       <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Ranged')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
