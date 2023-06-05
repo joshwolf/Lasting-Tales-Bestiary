@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, computed } from 'vue';
 import { useCreatureStore } from '@/stores/creatures';
 import { useAuthStore } from '@/stores/auth'
 
@@ -14,7 +14,7 @@ const creatureStore = useCreatureStore();
 const authStore = useAuthStore();
 
 const emit = defineEmits(['update-creature'])
-const creatureSelected = ref(false)
+const creatureSelected = ref(creatureStore.selectedCreatures.some(c => c.name === props.creature.name))
 
 function attackSpecialPrefix(special) {
   const specialArray = special.split(':')
@@ -39,14 +39,19 @@ function toggleCreature(creature) {
 
 function deleteCreature(creature) {
   if(confirm('Are you sure you want to delete this ' + creature.name + '?'))
-    creatureStore.delete(creature)
+    creatureStore.delet
+    e(creature)
  }
+
+ const isChecked = computed(() => {
+   return creatureStore.selectedCreatures.some(c => c.name === props.creature.name)
+ })
 </script>
 
 <template>
   <div class="card bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
     <div class="card-body">
-      <div><input type="checkbox" class="checkbox checkbox-info border-2" v-model="creatureSelected" @change="toggleCreature(creature)"></div>
+      <div><input type="checkbox" class="checkbox checkbox-info border-2" :value="creature" :selected="isChecked" v-model="creatureSelected" @change="toggleCreature(creature)"></div>
       <div class="flex w-full">
         <div class="flex-grow">
           <p class="card-title text-3xl font-extrabold">{{ creature.name }}</p>
