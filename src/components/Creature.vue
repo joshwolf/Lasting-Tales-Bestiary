@@ -47,60 +47,48 @@ function deleteCreature(creature) {
   <div class="card bg-slate-200 shadow-xl text-[var(--vt-c-indigo)]">
     <div class="card-body">
       <div><input type="checkbox" class="checkbox checkbox-info border-2" v-model="creatureSelected" @change="toggleCreature(creature)"></div>
-      <div class="flex">
-        <p class="card-title flex-grow-0 text-5xl font-extrabold">{{ creature.name }}</p>
-        <p class="self-end flex-grow">({{ creature.class }} {{ creature.family }})</p>
+      <div class="flex w-full">
+        <div class="flex-grow">
+          <p class="card-title text-3xl font-extrabold">{{ creature.name }}</p>
+          <p class="self-end">({{ creature.class }} {{ creature.family }})</p>
+        </div>
         <div class="self-start mask mask-heart bg-red-600 h-12 w-12 grid place-items-center text-white font-extrabold">
           {{ creature.hp }}
         </div>
       </div>
-      <p>{{ creature.types.join(', ') }}</p>
-      <div class="stats w-full">
-        <div class="stat">
-          <div class="stat-title">MEL</div>
-          <div class="stat-value">{{ creature.melee }}</div>
+      <p class="flex-grow-0">{{ creature.types.join(', ') }}</p>
+      <div class="w-full rounded-lg border-2 border-gray-600">
+        <div class="grid grid-cols-7 bg-gray-600 text-white text-center">
+          <div class="">MEL</div>
+          <div class="">RNG</div>
+          <div class="">STR</div>
+          <div class="">AGI</div>
+          <div class="">DEF</div>
+          <div class="">INT</div>
+          <div class="">WIL</div>
         </div>
-        <div class="stat">
-          <div class="stat-title">RNG</div>
-          <div class="stat-value">{{ creature.ranged }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">STR</div>
-          <div class="stat-value">{{ creature.strength }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">AGI</div>
-          <div class="stat-value">{{ creature.agility }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">DEF</div>
-          <div class="stat-value">{{ creature.defense }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">INT</div>
-          <div class="stat-value">{{ creature.intelligence }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">WIL</div>
-          <div class="stat-value">{{ creature.willpower }}</div>
+        <div class="grid grid-cols-7 bg-white text-center rounded-lg">
+          <div class="border font-extrabold">{{ creature.melee }}</div>
+          <div class="border font-extrabold">{{ creature.ranged }}</div>
+          <div class="border font-extrabold">{{ creature.strength }}</div>
+          <div class="border font-extrabold">{{ creature.agility }}</div>          
+          <div class="border font-extrabold">{{ creature.defense }}</div>
+          <div class="border font-extrabold">{{ creature.intelligence }}</div>
+          <div class="border font-extrabold">{{ creature.willpower }}</div>
         </div>
       </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-title">Attack Type</div>
-          <div class="stat-value">{{ creature.attackType }}</div>
+      <div class="w-full rounded-lg border-2 border-gray-600">
+        <div class="grid grid-cols-12 bg-gray-600 text-white text-center">
+          <div class="col-span-4">Attack Type</div>
+          <div class="col-span-3">Resistance</div>
+          <div class="col-span-3">Armor Dice</div>
+          <div class="col-span-2">Strikes</div>
         </div>
-        <div class="stat">
-          <div class="stat-title">Resistance</div>
-          <div class="stat-value">{{ creature.resistance }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">Armor Dice</div>
-          <div class="stat-value">{{ creature.armorDice }}</div>
-        </div>
-        <div class="stat">
-          <div class="stat-title">Strikes</div>
-          <div class="stat-value">{{ creature.strikes }}</div>
+        <div class="grid grid-cols-12 bg-white text-center rounded-lg">
+          <div class="col-span-4 border font-extrabold">{{ creature.attackType }}</div>
+          <div class="col-span-3 border font-extrabold">{{ creature.resistance }}</div>
+          <div class="col-span-3 border font-extrabold">{{ creature.armorDice }}</div>
+          <div class="col-span-2 border font-extrabold">{{ creature.strikes }}</div>
         </div>
       </div>
       <div class="flex flex-wrap place-items-center bg-white border-gray-600 border-2 border-b rounded-lg">
@@ -123,7 +111,7 @@ function deleteCreature(creature) {
         </div>
         <div class="basis-full border-t border-gray-600 px-2">
           <p class="font-bold">Special:</p>
-          <p v-for="special in creature.specials">{{ special }}</p>
+          <p v-for="special in creature.specials" class="text-sm">{{ special }}</p>
         </div>
       </div>
       <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Ranged')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
@@ -135,16 +123,17 @@ function deleteCreature(creature) {
         <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.short }}</p></div>
         <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.long || '-' }}</p></div>
         <div class="text-center damage flex-grow-none basis-1/6 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
-        <div class="text-center special flex-grow basis-1/2 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
+        <div class="text-center special flex-grow basis-1/2 p-1 text-sm"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
       <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Melee')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">
         <div class="text-center basis-full border-b border-gray-600 text-white font-bold bg-gray-600">{{ attack.type }} Attack: {{ attack.name }}</div>
         <div class="text-center flex-grow-none basis-2/5 font-bold border-b border-r border-gray-600 bg-gray-300">Damage</div>
         <div class="text-center flex-grow basis-2/5 font-bold border-b border-gray-600 bg-gray-300">Special</div>
         <div class="text-center damage flex-grow-none basis-2/5 border-r border-gray-600 flex"><p class="self-center">{{ attack.damage }}</p></div>
-        <div class="text-center special flex-grow basis-2/5 p-1"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
+        <div class="text-center special flex-grow basis-2/5 p-1 text-sm"><b>{{ attackSpecialPrefix(attack.special) }}</b> {{ attackSpecialInfo(attack.special) }}</div>
       </div>
-      <div v-if="authStore.isAuthenticated" class="btn btn-sm w-12" @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
+      <div class="flex-grow"></div>
+      <div v-if="authStore.isAuthenticated" class="btn btn-sm w-12 " @click="emit('update-creature', Object.assign({}, creature))">Edit</div>
       <div v-if="authStore.isAuthenticated" class="btn btn-xs w-12" @click="deleteCreature(creature)">Delete</div>
     </div>
   </div>
