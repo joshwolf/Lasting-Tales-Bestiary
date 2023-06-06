@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "host": "vite --host"
-   },
+  },
   "dependencies": {
     "@vueform/multiselect": "^2.6.2",
     "daisyui": "^3.0.1",

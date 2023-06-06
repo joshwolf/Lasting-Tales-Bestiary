@@ -2,6 +2,7 @@
 import { defineProps, ref, computed } from 'vue';
 import { useCreatureStore } from '@/stores/creatures';
 import { useAuthStore } from '@/stores/auth'
+import { analytics } from "../firebaseInit";
 
 const props = defineProps({
   creature: {
@@ -33,6 +34,7 @@ function toggleCreature(creature) {
   if(creatureStore.selectedCreatures.includes(creature)) {
     creatureStore.selectedCreatures = creatureStore.selectedCreatures.filter(c => c !== creature)
   } else {
+    analytics.logEvent('select_creature', { name: creature.name })
     creatureStore.selectedCreatures.push(creature)
   }
 }
@@ -145,7 +147,7 @@ function deleteCreature(creature) {
         </div>
         <div class="text-center flex-gro basis-full border-t lg:border-t-0 border-gray-600 lg:basis-1/2 font-bold">
           <div class="border-b border-gray-600 basis-1/5 bg-gray-300 font-bold">Special</div>
-          <div class="h-full self-center w-full">{{ attack.special }}</div>
+          <div class="h-full self-center w-full p-1">{{ attack.special }}</div>
         </div>
       </div>
       <div v-for="attack in creature.attacks.filter((attack) => attack.type == 'Melee')" class="attack flex flex-wrap items-stretch bg-white border-gray-600 border-2 border-b rounded-lg">

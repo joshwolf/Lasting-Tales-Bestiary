@@ -4,6 +4,7 @@ import { useCreatureStore } from "../stores/creatures";
 import { useAuthStore } from '@/stores/auth'
 import CreatureForm from "./CreatureForm.vue";
 import { ref, computed } from "vue";
+import { analytics } from "../firebaseInit";
 
 const creatureStore = useCreatureStore();
 const authStore = useAuthStore();
@@ -103,6 +104,10 @@ function resetSearch() {
   searchEnvironments.value = [];
 }
 
+function logSearch(param) {
+  analytics.logEvent("search", { param });
+}
+
 </script>
 
 <style scoped>
@@ -130,28 +135,28 @@ function resetSearch() {
     <div class="flex basis-2/3 flex-wrap gap-1">
       <span class="flex flex-wrap  gap-1">
         <label class="swap" v-for="creatureClass in ['Minion','Elite']">
-          <input type="checkbox" v-model="searchClasses" :value="creatureClass"/>
+          <input type="checkbox" v-model="searchClasses" :value="creatureClass" @change="logSearch(creatureClass)"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureClass }}</div></div>
           <div class="swap-off"><div class="badge badge-info">{{ creatureClass }}</div></div>
         </label>
       </span>
       <span class="flex flex-wrap  gap-1">
         <label class="swap" v-for="creatureFamily in creatureStore.allFamilies">
-          <input type="checkbox" v-model="searchFamilies" :value="creatureFamily"/>
+          <input type="checkbox" v-model="searchFamilies" :value="creatureFamily" @change="logSearch(creatureFamily)"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureFamily }}</div></div>
           <div class="swap-off"><div class="badge badge-warning">{{ creatureFamily }}</div></div>
         </label>
       </span>
       <span class="flex flex-wrap  gap-1">
         <label class="swap" v-for="creatureEnvironment in creatureStore.allEnvironments">
-          <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment"/>
+          <input type="checkbox" v-model="searchEnvironments" :value="creatureEnvironment" @change="logSearch(creatureEnvironment)"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureEnvironment }}</div></div>
           <div class="swap-off"><div class="badge badge-accent">{{ creatureEnvironment }}</div></div>
         </label>
       </span>
       <span class="flex flex-wrap gap-1">
         <label class="swap" v-for="creatureType in creatureStore.allTypes">
-          <input type="checkbox" v-model="searchTypes" :value="creatureType"/>
+          <input type="checkbox" v-model="searchTypes" :value="creatureType" @change="logSearch(creatureType)"/>
           <div class="swap-on"><div class="badge badge-neutral">{{ creatureType }}</div></div>
           <div class="swap-off"><div class="badge badge-primary">{{ creatureType }}</div></div>
         </label>
@@ -175,4 +180,5 @@ function resetSearch() {
       <span>Creature Saved!</span>
     </div>
   </div>
+  {{ creatureStore.creatures }}
 </template>
