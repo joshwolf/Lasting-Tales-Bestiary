@@ -19,6 +19,7 @@ const searchTypes = ref([]);
 const searchEnvironments = ref([]);
 const searchClasses = ref([]);
 const searchFamilies = ref([]);
+const searchLevel = ref("");
 const allCreatures = ref(true);
 
 function closeForm() {
@@ -89,8 +90,11 @@ const filteredCreatures = computed(() => {
       (searchClasses.value.length == 0 ||
         searchClasses.value.some((cls) => creature.class == cls)) &&
       (searchFamilies.value.length == 0 ||
-        searchFamilies.value.some((fam) => creature.family == fam))
-    )
+        searchFamilies.value.some((fam) => creature.family == fam)) &&
+      (searchLevel.value == '' || searchLevel.value == 0 ||
+        creature.levels.some((level) => level.level == searchLevel.value)
+      )
+    );
   }).sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
@@ -131,7 +135,10 @@ function logSearch(param) {
     </label>
   </div>
   <div class="lg:flex align-middle gap-3 place-items-center" v-if="allCreatures">
-    <input type="text" class="rounded w-60 px-2 form-input my-2 lg:my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
+    <div class="lg:grid">
+      <input type="text" class="rounded w-40 lg:w-60 px-2 form-input my-2 lg:my-5 text-black border-2" placeholder="Search" v-model="searchQuery" />
+      <span><label class="ml-5 lg:ml-0">Level: </label> <input type="number" class="rounded w-20 px-2 form-input my-2 lg:my-5 text-black border-2" placeholder="" max="10" min="0" v-model="searchLevel" /></span>
+    </div>
     <div class="flex basis-2/3 flex-wrap gap-1">
       <span class="flex flex-wrap  gap-1">
         <label class="swap" v-for="creatureClass in ['Minion','Elite']">
@@ -180,5 +187,4 @@ function logSearch(param) {
       <span>Creature Saved!</span>
     </div>
   </div>
-  {{ creatureStore.creatures }}
 </template>
