@@ -4,12 +4,14 @@ import firebase from "../firebaseInit";
 const db = firebase.firestore();
 import { useCollection } from 'vuefire'
 import { collection } from 'firebase/firestore'
+import creatureSpecials from '../data/creatureSpecials.json'
 
 export const useCreatureStore = defineStore('creatures', {
   state: () => {
     return {
       creatures: useCollection(collection(db, 'creatures')),
-      selectedCreatures: []
+      selectedCreatures: [],
+      creatureSpecials: creatureSpecials
     }
   },
   actions: {

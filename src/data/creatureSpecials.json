@@ -1,0 +1,317 @@
+
+[
+  {
+    "name": "Absorb Health",
+    "description" : "For every full 3 points of Damage inflicted by this Attack, the attacker restores 1 Health point."
+  },
+  {
+    "name": "Acute Senses",
+    "description": "This model ignores the Hidden condition of enemies within 6\". The condition is not removed, but this model may draw Line of Sight to it as normal."
+  },
+  {
+    "name": "Ambusher",
+    "description": "This model performs a full activation as soon as it Spawns."
+  },
+  {
+    "name": "Amphibious",
+    "description": "This model treats Difficult Water terrain as Open, and Impassable Water terrain as Difficult."
+  },
+  {
+    "name": "Blast",
+    "displayName": "Blast (Radius)",
+    "description": "This Attack affects all models (friend or foe) even partially within the stated radius of the target, in inches. The target may, in some instances, be a point on the gaming area (see Indirect, below). If it is a model, the radius is measured from the edge of the target's base.\nRoll Damage and/or apply additional effects against each affected model separately\nThis Attack may not be used if the attacker would be caught in the Blast Area."
+  },
+  {
+    "name": "Bleed",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Bleeding condition."
+  },
+  {
+    "name": "Bludgeon",
+    "description": "If the target suffers any Damage from this Attack but is not removed as a casualty, it must pass a DEF Test or become Staggered."
+  },
+  {
+    "name": "Bodyguard",
+    "displayName": "Bodyguard (Target)",
+    "description": "Whenever the specified target is Attacked by an enemy, and this model is within 3\" of that target, this model may become the new target of the Attack—no models are moved, and this rule is in effect even if the model was not in range or Line of Sight of the original Attack (it is assumed to rush in front of its master, and then return to duty—if it survives).\nNote: If a Follower has this rule, the controlling player may decide each time whether or not to use it. If an Adversary has the rule, there is no choice— the Bodyguard will always use this ability when its master is threatened."
+  },
+  {
+    "name": "Bounty",
+    "displayName": "Bounty (X)",
+    "description": "When this model is removed as a casualty in Melee, the model that destroyed it gains Gold equal to (X). This could be anything from a reward on the enemy’s head, the value of a pelt, or loot from the corpse."
+  },
+  {
+    "name": "Burrow",
+    "description": "This model ignores all Terrain and models when it Moves, although it must still end its Move in an accessible position as normal. As this model uses vibrations from movement to hunt its prey, it counts all non-Hidden enemies as being within Line of Sight.\nIn addition, when this model Spawns, roll 2D6 after placing it. The model immediately moves that many inches towards the nearest enemy, stopping if it reaches engagement, but otherwise Moving as described above."
+  },
+  {
+    "name": "Cautious",
+    "description": "This rule modifies the behavior of Adversaries when they activate, depending on their Type, unless otherwise specified in the Adventure special rules.\n• A Cautious Melee Adversary will not Move directly towards its target if it cannot reach engagement. Instead, it will deviate from its path by the shortest possible route in order to put Cover between itself and the target. If it cannot reach Cover, it will not Move at all.\n• A Cautious Ranged Adversary will not Move into Short Range of its Attack if it can shoot at Long Range. If it Moves, it will do so only by the shortest distance to target an enemy at range, whether at Long or Short Range.\n"
+  },
+  {
+    "name": "Chained Shot",
+    "displayName": "Chained Shot (X)",
+    "description": "A Ranged Attack with this special rule strikes a number of times equal to X as a single Attack. Roll to hit the initial target as normal, and resolve the shot. As long as the Attack Roll is successful, even if it causes no damage—this is the first strike in the chain.\nRoll Damage against another enemy within 3\" of the first (the target is automatically hit). No range or even Line of Sight is necessary, although if the new target is behind cover from the point of view of the attacker, they receive a cover bonus as normal. Repeat this process until X strikes have been made—all targets must be within 3\" of the original, and no model may be targeted more than once until every eligible model has been targeted."
+  },
+  {
+    "name": "Chill",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Slowed condition. In addition, if the target had the Burning condition, it is removed."
+  },
+  {
+    "name": "Craven",
+    "description": "This Adversary will not Move towards an enemy unless there is at least one other Adversary within 6\" when it activates. Otherwise, it will remain stationary during its activation."
+  },
+  {
+    "name": "Cumbersome",
+    "description": "Attack Rolls made with this weapon suffer a -2 penalty."
+  },
+  {
+    "name": "Defensive",
+    "description": "This rule modifies the behavior of Adversaries when they activate, unless otherwise specified in the Adventure special rules.\n• When unengaged, instead of targeting the closest enemy in Line of Sight, a Defensive Adversary will always target the enemy closest to a Special Objective, Objective, or Treasure Chest (in that order) that it can see.\n• A Defensive Adversary will only Run to engage an enemy if the target is within 12\"."
+  },
+  {
+    "name": "Defensive Weapon",
+    "description": "Attack Rolls made with this weapon suffer a -1 penalty. However, while this weapon is equipped the bearer gains +1 Armor die vs the first enemy Melee Attack each round."
+  },
+  {
+    "name": "Entourage",
+    "displayName": "Entourage (X)",
+    "description": "This Adversary is always accompanied by a number of models of Name X, forming an Adversary group."
+  },
+  {
+    "name": "Ethereal",
+    "description": "This model moves and runs through scenery and other models as though they weren’t there (it must still end a Move in an eligible position). The model must Climb only if it wishes to reach a higher platform—if it’s simply climbing over an obstacle,\nit ignores it completely. It must Jump as normal, but suffers no damage from Falling. In addition, all Damage inflicted on this model must be reduced by 1 point, unless the attack has the Magical keyword."
+  },
+  {
+    "name": "Extra Strikes",
+    "displayName": "Extra Strikes (X)",
+    "description": "When performing a Melee Attack, this model receives a number of extra strikes equal to X."
+  },
+  {
+    "name": "Fearless",
+    "description": "This model automatically passes any Morale check it is required to take."
+  },
+  {
+    "name": "Fearsome",
+    "description": "If this model performs a Melee Attack against an enemy and inflicts any damage, the target enemy must take a Morale Check. The Morale Check is only taken once the Attack is complete.\nModels with the Fearsome rule are themselves immune to this effect."
+  },
+  {
+    "name": "Feeble-Minded",
+    "description": "This model suffers Disadvantage on its WIL Tests."
+  },
+  {
+    "name": "Forest Spawn",
+    "description": "At setup, this model must always be deployed within, or in contact with, a piece of Woodland Terrain if possible—pick the piece nearest the model’s usual deployment area. This rule supersedes all other deployment rules.\nIf this model enters play by Spawning, it will spawn in contact with a randomly chosen piece of Woodland Terrain (if any are in play) instead of a usual spawn Point."
+  },
+  {
+    "name": "Fire",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Burning condition."
+  },
+  {
+    "name": "Fleet",
+    "description": "This model rolls 2D6 when performing a Run and picks the highest result."
+  },
+  {
+    "name": "Fly",
+    "description": "This model may Fly 12\" when it Moves. If it does so, it ignores all intervening models and terrain, but must still end the Fly Move in an eligible position. If the model cannot Fly for any reason, or chooses not to, it follows the normal rules for Moves. A model cannot Fly and Run in the same activation. An Adversary will only Fly if its target point is more than 6\" away, or if it would otherwise be unable to reach the target point with an ordinary Move.\nNote that a model cannot Fly if it is within a fully enclosed terrain feature, such as a house or cave. Most Dungeon setups assume the action takes place in a huge chamber, with walls that can be flown over, but players may wish to designate areas that are inaccessible to flying creatures, or features that are so tall as to be impassable."
+  },
+  {
+    "name": "Guard",
+    "description": "This rule modifies the behavior of Adversaries when they activate, unless otherwise specified in the Adventure special rules.\n• When unengaged, instead of targeting the closest enemy in Line of Sight, a Guard Adversary will always target the enemy closest to the closest Elite Adversary (ignoring Lurkers). If there are no Elite Adversaries in play, the Guard follows the normal rules for Adversary activations.\n• Whenever an Elite Adversary (ignoring Lurkers) within 3\" of this model is targeted by a Ranged Attack, this model becomes the new target of the Attack–no models are moved, and this rule is in effect even if the model was not in range or Line of Sight of the original Attack."    
+  },
+  {
+    "name": "Hack",
+    "description": "If the target suffers any Damage from this Attack, but is not removed from play, it must pass a DEF Test or become Exposed."
+  },
+  {
+    "name": "Hate",
+    "displayName": "Hate (X)",
+    "description": "When performing a Melee Attack against a model of type X (usually a Race, Class, Adversary type or keyword), this model may reroll the Attack Roll. In addition, this model will never voluntarily leave engagement with an enemy of the specified type—it will attempt to fight to the bitter end!"
+  },
+  {
+    "name": "Huge",
+    "description": "Huge models cannot be Pushed, and cannot be Staggered if another model is Pushed into them. They may leave engagement at any time, ignoring the rules for Disengaging unless at least one enemy in contact is either Large or Huge. Huge models cannot be Surrounded—simply move the model as normal, moving aside any models that were trapping it by the minimum possible distance to let the Huge model pass."
+  },
+  {
+    "name": "Hurl",
+    "description": "This ranged weapon adds the model’s Strength Bonus to its Damage."
+  },
+  {
+    "name": "Immobile",
+    "description": "This model cannot Move under any circumstances (it may still be Pushed)."
+  },
+  {
+    "name": "Immunity",
+    "displayName": "Immunity (X)",
+    "description": "This model can never receive the specified (X) condition."
+  },
+  {
+    "name": "Indirect",
+    "description": "This Ranged Attack or ability may target a point on the gaming area instead of a model. However, if the Attack Roll is a Fumble, the model performing the Attack becomes the target!\nAn Adversary with this rule does not need to be able to see a target when performing this Ranged Attack—it will always pick the closest point where an enemy will be within the attack’s radius (if applicable)."
+  },
+  {
+    "name": "Mighty",
+    "description": "This model rolls a Critical die alongside its Attack rolls, and can score Mighty Blows and Fumbles just like a Hero."
+  },
+  {
+    "name": "Momentum",
+    "description": "A model may Attack with this weapon and still Run in the same activation."
+  },
+  {
+    "name": "Nightvision",
+    "description": "This model ignores the rules for Darkness."
+  },
+  {
+    "name": "Large",
+    "description": "If a Large model is Pushed, the distance of the Push is halved."
+  }, 
+  {
+    "name": "Lightning",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Shocked condition."
+  },
+  {
+    "name": "Loot",
+    "description": "If this model is removed as a casualty as a result of a Hero’s Melee Attack, it drops a valuable item—roll on the table below to see what type of item is dropped, and use the Treasure rules (page 116) to determine the precise item. The Hero that delivered the killing blow gains the item immediately, exactly as if they’d completed a Search Action."
+  },
+  {
+    "name": "Lumbering",
+    "description": "This model cannot Run."
+  },
+  {
+    "name": "Master",
+    "description": "This Adversary must activate before any other Adversary in play. If several Adversaries have this ability, the players choose the order in which the Masters activate, before moving onto other Adversaries."
+  },
+  {
+    "name": "Intangible",
+    "description": "All Attacks targeting this model suffer a -2 penalty to hit."
+  },
+  {
+    "name": "Numberless",
+    "description": "This model adds +1 to its Spawn rolls (to a minimum of 2+)."
+  },
+  {
+    "name": "Off-hand Weapon",
+    "description": "If this weapon is chosen to make a Secondary Strike, it does not suffer Disadvantage."
+  },
+  {
+    "name": "One-Handed",
+    "description": "This weapon is eligible for Dual Wield strikes."
+  },
+  {
+    "name": "Pack Hunter",
+    "description": "If there is at least one other Adversary Minion of the same name within 6\" when this model performs an Attack, it gains Advantage on the Attack Roll."
+  },
+  {
+    "name": "Petrify",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Petrified condition."
+  },
+  {
+    "name": "Pierce",
+    "displayName": "Pierce (X)",
+    "description": "The target must subtract X dice from its Armor Dice pool (if applicable)."
+  },
+  {
+    "name": "Pinning",
+    "description": "If a model is successfully hit by an Attack with this rule (even if it suffers no damage), it must pass an AGI Test or suffer the Pinned condition."
+  },
+  {
+    "name": "Poison",
+    "description": "If a model takes Damage from an Attack with this rule, but is not removed as a casualty, they immediately suffer the Poisoned condition."
+  },
+  {
+    "name": "Pounce",
+    "description": "If this model is unengaged at the start of its activation, it performs a free Move of D3\" directly towards the nearest visible enemy (if any)."
+  },
+  {
+    "name": "Priest",
+    "displayName": "Priest (X)",
+    "description": "A model with this rule may use the Commune Action to perform Miracles, as described on page 36. In addition, Priests usually belong to a single Divine Path (X), giving them additional bonuses (page 58)."
+  },
+  {
+    "name": "Push",
+    "displayName": "Push (X)",
+    "description": "If a model suffers this effect, or takes Damage from an Attack with this rule but is not removed as a casualty, they are immediately Pushed back a number of inches equal to X, directly away from the source of the Attack, in a dead straight line. If the target contacts another model, both models receive the Staggered condition. If the target contacts a terrain piece, it receives the Stunned condition instead."
+  },
+  {
+    "name": "Quick",
+    "description": "This model Moves 9\" instead of the usual 6\"."
+  },
+  {
+    "name": "Reckless Charge",
+    "description": "This rule modifies the behavior of Adversaries when they activate, unless otherwise specified in the Adventure special rules. If this Adversary Runs to engage an enemy but fails to reach its target, it gains the Exposed condition. If it reaches a target after Running, however, it adds +2 Damage to its Melee Attack that round, as long as its total Move was more than 6\"."
+  },
+  {
+    "name": "Regenerate Health",
+    "displayName": "Regenerate Health (X)",
+    "description": "At the end of each round, this model automatically restores a number of lost Health points equal to X. If this model suffers the Burning condition during an adventure, they lose this special rule for the remainder of the game."
+  },
+  {
+    "name": "Resist",
+    "displayName": "Resist (X)",
+    "description": "This model halves all Damage suffered of type X (rounding fractions up), whether from the initial Attack, trap, or other source such as a condition. So, for example, a model with Resist (Fire) with the Burning condition might roll 2 points of Damage at the end of the round, but would only remove 1 Health point.\nIn addition, if the model has Resist (Magical), then it gains a +2 modifier to any WIL Test it is required to take as a result of an enemy Spell."
+  },
+  {
+    "name": "Shambling",
+    "description": "This model may only move 4\". When moving through Difficult Terrain or Running, it rolls D3+1 to determine its movement allowance. (Only one die is rolled for Difficult Terrain)."
+  },
+  {
+    "name": "Slow Reload",
+    "description": "Each time this weapon is fired, the bearer must Reload before it can be fired again. See Actions, page 23.\nAn Adversary with this rule must be marked as Reloading after performing a Ranged Attack. The next time that model is required to perform a Ranged Attack, it instead removes the Reloading status and ends its activation."
+  },
+  {
+    "name": "Small",
+    "description": "Small models can always attempt to Disengage, even if Surrounded, and never count towards Surrounding an enemy (they receive no bonus for Surrounding, and if the enemy disengages they can Move through the Small model as if they weren’t there).\nIf an enemy without the Small rule is only engaged with Small models, it does not need to test to Disengage—it simply shrugs off the attackers and moves away.\nFinally, if a Small model is Pushed, the distance is doubled."
+  },
+  {
+    "name": "Sneaky",
+    "description": "If this model is unengaged at the end of its activation, and cannot draw clear Line of Sight to an enemy, it receives the Hidden condition."
+  },
+  {
+    "name": "Stomp",
+    "description": "This creature is so large or powerful that it shakes the ground with a mighty Stomp. When this creature would perform a Melee Attack, you must first resolve the Stomp. Each model, friend or foe, in contact with this creature must take a STR Test. If they fail, they become Staggered. Huge creatures are immune to this effect. After the Stomp is resolved, the creature performs its Melee Attack as normal."
+  },
+  {
+    "name": "Stout",
+    "description": "This model never suffers Agility penalties for wearing Heavy or Full Plate Armor."
+  },
+  {
+    "name": "Strafe",
+    "description": "When this model completes a Move using the Fly rule, it performs a free Ranged attack if possible at the end of the Move. This model is always treated as unengaged for the purposes of this Attack (it is considered to perform the Attack before landing— if the model should be engaged, you may wish to pause the Move 1\" from the target, perform the Ranged Attack, then complete the Move).\nNote that a Strafe attack may also have the Blast rule. As the strafing model is considered to be airborne, it may use a Blast attack even if it’s within the Blast area, and is not itself affected."
+  },
+  {
+    "name": "Stupid",
+    "description": "This model suffers Disadvantage on its INT Tests."
+  },
+  {
+    "name": "Support",
+    "description": "A model with this weapon may perform a Melee Attack “through” a friendly model, without themselves being in base contact. This model must be in contact with the friendly model, and the friendly model must be in contact with the target. The friendly model must be mounted on a base of equal size or smaller than the supporting model. No extra strikes from special rules may be used in the same activation that a model uses the Support rule."
+  },
+  {
+    "name": "Spellcaster",
+    "description": "This model may cast a Spell as an Action."
+  },
+  {
+    "name": "Teleport",
+    "description": "Nominate a point within 18\" of this model—it must be an eligible position for the model to be placed. Now, remove the model from the gaming area, and immediately replace it at the nominated point. A model cannot Move in the same round that it Teleports."
+  },
+  {
+    "name": "Terrifying",
+    "description": "An enemy that begins its activation within 6\" and Line of Sight of this model, or suffers any damage from this model’s Attacks, must take a Morale Check.\n• A Terrifying model is immune to this effect.\n• A model that passes the Morale check does not need to test again against the same Terrifying model for the rest of the round—it has overcome its fear... for now!"
+  },
+  {
+    "name": "Two-Handed",
+    "description": "A model may not equip a Shield, nor may it Dual Wield, while this weapon is equipped. It may still equip a Ranged Weapon—the model is assumed to switch between Ranged and Melee as required."
+  },
+  {
+    "name": "Wallcrawler",
+    "description": "This model never needs to Test when Climbing—it automatically succeeds."
+  },
+  {
+    "name": "Weakness",
+    "displayName": "Weakness (X)",
+    "description": "When damaged by an Attack or ability with the (X) special rule, this model loses an extra D3 Health Points."
+  },
+  {
+    "name": "Woodland Creature",
+    "description": "This model treats all terrain with the Woodland keyword as Open Terrain."
+  }
+]

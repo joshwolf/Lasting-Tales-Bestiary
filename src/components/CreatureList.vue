@@ -106,6 +106,9 @@ function resetSearch() {
   searchQuery.value = "";
   searchTypes.value = [];
   searchEnvironments.value = [];
+  searchLevel.value = "";
+  searchClasses.value = [];
+  searchFamilies.value = [];
 }
 
 function logSearch(param) {

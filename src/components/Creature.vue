@@ -3,6 +3,7 @@ import { defineProps, ref, computed } from 'vue';
 import { useCreatureStore } from '@/stores/creatures';
 import { useAuthStore } from '@/stores/auth'
 import { analytics } from "../firebaseInit";
+import DefinableTerm from "./DefinableTerm.vue";
 
 const props = defineProps({
   creature: {
@@ -41,8 +42,7 @@ function toggleCreature(creature) {
 
 function deleteCreature(creature) {
   if(confirm('Are you sure you want to delete this ' + creature.name + '?'))
-    creatureStore.delet
-    e(creature)
+    creatureStore.delete(creature)
  }
 
  const isChecked = computed(() => {
@@ -125,9 +125,11 @@ function deleteCreature(creature) {
         </div>
         <div class="w-full py-1 px-2 border-gray-600">
           <p class="font-bold">Special:</p>
-          <p class="text-sm">{{ simpleSpecials.join(', ') }}</p>
-          <div v-for="special in complexSpecials">
-            <b>{{ special[0] }}: </b> {{ special[1] }}
+          <div class="text-sm">
+            <DefinableTerm v-for="special in simpleSpecials" :term="special" :key="special" :isLast="special == simpleSpecials[simpleSpecials.length - 1]"></DefinableTerm>
+            <div v-for="special in complexSpecials">
+              <b>{{ special[0] }}: </b> {{ special[1] }}
+            </div>
           </div>
         </div>
       </div>
