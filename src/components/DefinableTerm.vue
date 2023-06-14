@@ -1,5 +1,5 @@
 <template>
-  <span :class="`${ specialDefinition ? 'md:tooltip cursor-pointer' : 'cursor-auto' } md:${tooltipPosition}`" :data-tip="specialDefinition" ref="definition">
+  <span :class="`${ specialDefinition ? 'tooltip cursor-pointer' : 'cursor-auto' } ${tooltipPosition}`" :data-tip="specialDefinition" ref="definition">
     {{ props.term }}<span v-if="!props.isLast">, </span>
   </span>
 </template>
@@ -25,7 +25,7 @@ const tooltipPosition = computed(() => {
   if (!definition.value) return 'tooltip-top'
   const leftMargin = definition.value.getBoundingClientRect().left;
 
-  if (leftMargin < 150) {
+  if (leftMargin < 100) {
   return 'tooltip-right';
   } else {
   return 'tooltip-top';
